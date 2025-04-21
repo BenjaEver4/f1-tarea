@@ -1,0 +1,75 @@
+Benjamin Paulsen 202173017-6
+
+#PARA WINDOWS
+1. Instalar compilador GCC compatible con Go (MinGW)
+-Descargar MSYS2 desde https://www.msys2.org/
+-Instalar y abrir la terminal MSYS2 MSYS.
+-Ejecutar los siguientes comandos en la terminal para instalar el compilador:
+
+pacman -Syu           # Primero actualizar todo
+pacman -S mingw-w64-x86_64-gcc
+
+-Agrega al PATH de Windows lo siguiente (donde sea que esté tu instalación de MSYS2)
+C:\msys64\mingw64\bin
+
+
+2. Habilitar CGO y configurar el compilador
+-Antes de correr tu servidor, debes ejecutar en la terminal de Windows (CMD o PowerShell):
+set CGO_ENABLED=1
+set CC=x86_64-w64-mingw32-gcc
+go run server.go
+
+
+3. Instalar SQLite para Windows
+-Ir a https://www.sqlite.org/download.html
+-Descargar el archivo Precompiled Binaries for Windows para 64bits
+-Extraer el archivo y agregar la carpeta a tu PATH. Por ejemplo:
+C:\sqlite
+-verificar que esta bien instalado :sqlite3 --version
+
+
+4. Correr el servidor:
+set CGO_ENABLED=1
+set CC=x86_64-w64-mingw32-gcc
+go run server.go
+
+5. Correr el Cliente:
+go run cliente.go
+
+
+
+
+#PARA UBUNTU
+1.1. Elimina cualquier versión antigua
+2.  Descarga la última versión de Go
+sudo rm -rf /usr/local/go
+
+3.  Extrae Go en /usr/local
+wget https://go.dev/dl/go1.22.2.linux-amd64.tar.gz
+
+4.  Agrega Go al PATH
+sudo tar -C /usr/local -xzf go1.22.2.linux-amd64.tar.gz
+nano ~/.bashrc
+ALFINAL DE TODO AGREGA:
+export PATH=$PATH:/usr/local/go/bin
+SAL DE AHI Y AÑADE:
+source ~/.bashrc
+
+5.  Verifica la instalación
+go version
+#debieras ver : go version go1.22.2 linux/amd64
+
+
+6. Instalar SQLite  
+sudo apt update
+sudo apt install sqlite3 libsqlite3-dev
+sqlite3 --version
+
+7.Instalar dependencias desde la raiz del pryoecto
+go mod tidy
+#instalara el paquete : _ "github.com/mattn/go-sqlite3"
+
+
+8. EJECUTAR
+go run server.go
+go run cliente.go
